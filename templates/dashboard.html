@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("{{ url_for('static', filename='images/dashboard-bg.jpg') }}"); /* Add your background image */
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 800px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-out;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 25px;
+            text-align: center;
+            text-decoration: none;
+            font-size: clamp(14px, 2.5vw, 18px);
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 6px;
+            width: clamp(150px, 50%, 250px);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+        }
+        .button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(76, 175, 80, 0.4);
+        }
+        .logout-button {
+            background-color: #f44336;
+        }
+        .logout-button:hover {
+            background-color: #c62828;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome to the Dashboard</h2>
+        <div class="button-container">
+            <a href="{{ url_for('add_data') }}" class="button">Add Data</a>
+            <a href="{{ url_for('display_data') }}" class="button">Display Data</a>
+            <a href="{{ url_for('predict_demand') }}" class="button">Predict Medication Demand</a>
+            <a href="{{ url_for('logout') }}" class="button logout-button">Logout</a>
+        </div>
+    </div>
+
+    <script>
+        // Adding a subtle hover effect using JavaScript
+        document.querySelectorAll('.button').forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.transform = 'translateY(-3px)';
+                button.style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.2)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'translateY(0)';
+                button.style.boxShadow = '0 4px 10px rgba(76, 175, 80, 0.3)';
+            });
+        });
+    </script>
+</body>
+</html>

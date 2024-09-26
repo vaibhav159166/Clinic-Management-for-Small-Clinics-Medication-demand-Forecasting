@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Medication Demand Forecast</title>
+</head>
+<body>
+    <h1>Medication Demand Forecast</h1>
+
+    {% if forecasts.empty %}
+        <p>No forecast data available.</p>
+    {% else %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Medication Name</th>
+                    <th>First Month Forecast</th>
+                    <th>Second Month Forecast</th>
+                    <th>Third Month Forecast</th>
+                    <th>Fourth Month Forecast</th>
+                    <th>Fifth Month Forecast</th>
+                    <th>Sixth Month Forecast</th>
+                    <th>Forecast Plot</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for forecast in forecasts.to_dict(orient='records') %}
+                    <tr>
+                        <td>{{ forecast.medication_name }}</td>
+                        <td>{{ forecast.First_month_Forecast }}</td>
+                        <td>{{ forecast.Second_month_Forecast }}</td>
+                        <td>{{ forecast.Third_month_Forecast }}</td>
+                        <td>{{ forecast.Fourth_month_Forecast }}</td>
+                        <td>{{ forecast.Fifth_month_Forecast }}</td>
+                        <td>{{ forecast.Six_month_Forecast }}</td>
+                        <td>
+                            <img src="{{ url_for('static', filename='plots/' + forecast.plot_path) }}" alt="Forecast Plot for {{ forecast.medication_name }}" width="400">
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</body>
+</html>

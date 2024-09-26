@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #5c6bc0;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #3949ab;
+        }
+
+        .button-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .button-container a, .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+
+        .button-container button:hover {
+            background-color: #388e3c;
+        }
+    </style>
+    <script>
+        function printForm() {
+            // Collect the form data
+            let data = '';
+            const formElements = document.querySelectorAll('input');
+            formElements.forEach((element) => {
+                data += element.previousElementSibling.innerText + ' ' + element.value + '\n';
+            });
+
+            // Create a new window for printing
+            const printWindow = window.open('', '', 'height=500,width=800');
+            printWindow.document.write('<pre>' + data + '</pre>'); // Write the form data to the new window
+            printWindow.document.close();
+            printWindow.focus();
+            printWindow.print();
+            printWindow.close();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h2>Add Medication Data</h2>
+        <form method="POST" action="{{ url_for('add_data') }}">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="patient_name">Patient Name:</label>
+            <input type="text" id="patient_name" name="patient_name" required>
+
+            <label for="patient_age">Patient Age:</label>
+            <input type="text" id="patient_age" name="patient_age" required>
+
+            <label for="patient_gender">Patient Gender:</label>
+            <input type="text" id="patient_gender" name="patient_gender" required>
+
+            <label for="chronic_condition">Chronic Condition:</label>
+            <input type="text" id="chronic_condition" name="chronic_condition" required>
+
+            <label for="appointment_type">Appointment Type:</label>
+            <input type="text" id="appointment_type" name="appointment_type" required>
+
+            <label for="medication_name">Medication Name:</label>
+            <input type="text" id="medication_name" name="medication_name" required>
+
+            <label for="medication_demand">Medication Demand:</label>
+            <input type="number" id="medication_demand" name="medication_demand" required>
+
+            <button type="submit">Add Data</button>
+        </form>
+        
+        <div class="button-container">
+            <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+            <button type="button" onclick="printForm()">Print Data</button>
+        </div>
+    </div>
+</body>
+</html>

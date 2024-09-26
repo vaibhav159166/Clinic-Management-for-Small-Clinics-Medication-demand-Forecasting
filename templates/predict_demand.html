@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predict Demand</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-size: cover;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .forecast-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .forecast-table th, .forecast-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .forecast-table th {
+            background-color: #f4f4f4;
+        }
+        .button-container {
+            margin-top: 20px;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 1em 2em;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: clamp(14px, 2.5vw, 18px);
+            margin: 10px 0;
+            cursor: pointer;
+            border-radius: 4px;
+            width: clamp(150px, 50%, 200px);
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        .forecast-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Medication Demand Forecast</h2>
+        {% if forecasts %}
+            <table class="forecast-table">
+                <thead>
+                    <tr>
+                        <th>Medication Name</th>
+                        <th>First Month Forecast</th>
+                        <th>Second Month Forecast</th>
+                        <th>Third Month Forecast</th>
+                        <th>Fourth Month Forecast</th>
+                        <th>Fifth Month Forecast</th>
+                        <th>Sixth Month Forecast</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for forecast in forecasts %}
+                        <tr>
+                            <td>{{ forecast.medication_name }}</td>
+                            <td>{{ forecast.First_month_Forecast }}</td>
+                            <td>{{ forecast.Second_month_Forecast }}</td>
+                            <td>{{ forecast.Third_month_Forecast }}</td>
+                            <td>{{ forecast.Fourth_month_Forecast }}</td>
+                            <td>{{ forecast.Fifth_month_Forecast }}</td>
+                            <td>{{ forecast.Six_month_Forecast }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% for forecast in forecasts %}
+                <h3>{{ forecast.medication_name }}</h3>
+                <img src="{{ url_for('static', filename='forecast_plots/' + forecast.medication_name + '.png') }}" class="forecast-image" alt="Forecast Plot for {{ forecast.medication_name }}">
+            {% endfor %}
+        {% else %}
+            <p>No forecast data available.</p>
+        {% endif %}
+        <div class="button-container">
+            <a href="{{ url_for('dashboard') }}" class="button">Back to Dashboard</a>
+        </div>
+    </div>
+</body>
+</html>
